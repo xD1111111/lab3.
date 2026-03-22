@@ -22,3 +22,16 @@ function memoize(fn, maxSize = Infinity) {
     return result;
   };
 }
+// ===== TEST =====
+
+const add = (a, b) => a + b;
+
+const memoAdd = memoize(add, 2);
+
+console.log(memoAdd(2, 3)); // Calculating...
+console.log(memoAdd(2, 3)); // From cache
+
+console.log(memoAdd(4, 5)); // Calculating...
+console.log(memoAdd(6, 7)); // Calculating...
+
+console.log(memoAdd(2, 3)); // Calculating (бо було видалено)
