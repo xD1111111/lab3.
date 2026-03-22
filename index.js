@@ -1,4 +1,4 @@
-function memoize(fn) {
+function memoize(fn, maxSize = Infinity) {
   const cache = new Map();
 
   return function(...args) {
@@ -7,6 +7,12 @@ function memoize(fn) {
     if (cache.has(key)) {
       console.log("From cache");
       return cache.get(key);
+    }
+
+    // якщо кеш переповнений — видаляємо найстаріший
+    if (cache.size >= maxSize) {
+      const firstKey = cache.keys().next().value;
+      cache.delete(firstKey);
     }
 
     console.log("Calculating...");
